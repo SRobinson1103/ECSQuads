@@ -500,7 +500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainSettings: {fileID: 11400000, guid: 7dcbbe50552b9b040a45999a4d18de86, type: 2}
-  SquareMesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  SquareMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   TileMaterial: {fileID: 2100000, guid: 9ee7849d88faaee41b347d2bb41a9045, type: 2}
 --- !u!4 &1864045870
 Transform:

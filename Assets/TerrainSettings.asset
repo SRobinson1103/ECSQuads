@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d031a0b3044ed214f81cdf09b75f9a3f, type: 3}
   m_Name: TerrainSettings
   m_EditorClassIdentifier: 
-  GridWidth: 1000
+  GridWidth: 100
   GridHeight: 100
   TileSize: 1
   DefaultColor: {r: 0.8616352, g: 0.12192939, b: 0.12192939, a: 1}

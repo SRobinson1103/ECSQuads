@@ -62,9 +62,11 @@ public partial class TerrainGenerationSystem : SystemBase
         // Create a prefab entity with the necessary components
         EntityArchetype archetype = EntityManager.CreateArchetype(
             typeof(LocalToWorld),
+            typeof(LocalTransform),
             typeof(RenderBounds),
             typeof(MaterialMeshInfo),
-            typeof(URPMaterialPropertyBaseColor) // Adds support for per-entity colors
+            typeof(URPMaterialPropertyBaseColor), // Adds support for per-entity colors
+            typeof(MovementData) // Add MovementData to the archetype
         );
         Entity tilePrefab = EntityManager.CreateEntity(archetype);
 
@@ -83,6 +85,7 @@ public partial class TerrainGenerationSystem : SystemBase
             for (int z = 0; z < gridHeight; z++)
             {
                 Entity tile = EntityManager.Instantiate(tilePrefab);
+                //Debug.Log($"Entity created with LocalToWorld and MovementData components: {tile}");
 
                 float3 position = new float3(x * tileSize, 0, z * tileSize);
                 EntityManager.SetComponentData(tile, new LocalToWorld
@@ -90,10 +93,29 @@ public partial class TerrainGenerationSystem : SystemBase
                     Value = float4x4.TRS(position, quaternion.identity, new float3(1, 1, 1))
                 });
 
+                // Initialize MovementData
+                EntityManager.SetComponentData(tile, new MovementData
+                {
+                    JumpSpeed = Settings.JumpSpeed,
+                    FallSpeed = Settings.FallSpeed,
+                    CurrentVerticalVelocity = 0f
+                });
+
+                EntityManager.SetComponentData(tile, new LocalTransform
+                {
+                    Position = new float3(x * tileSize, 0, z * tileSize),
+                    Rotation = quaternion.identity,
+                    Scale = 1.0f // Ensure scale is initialized
+                });
+
                 // Assign default color
                 EntityManager.SetComponentData(tile, new URPMaterialPropertyBaseColor
                 {
-                    Value = new float4(Settings.DefaultColor.r, Settings.DefaultColor.g, Settings.DefaultColor.b, Settings.DefaultColor.a)
+                    //Value = new float4(Settings.DefaultColor.r, Settings.DefaultColor.g, Settings.DefaultColor.b, Settings.DefaultColor.a)
+                    Value = new float4(UnityEngine.Random.Range(0.0f, 1.0f),
+                    UnityEngine.Random.Range(0.0f, 1.0f),
+                    UnityEngine.Random.Range(0.0f, 1.0f),
+                    UnityEngine.Random.Range(0.0f, 1.0f))
                 });
             }
         }

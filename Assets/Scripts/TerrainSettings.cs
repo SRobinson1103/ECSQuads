@@ -11,4 +11,8 @@ public class TerrainSettings : ScriptableObject
     [Header("Tile Colors")]
     public Color DefaultColor = Color.white;
     public Color HighlightColor = Color.yellow;
+
+    [Header("Jump Settings")]
+    public float JumpSpeed = 10f;
+    public float FallSpeed = 9.8f;
 }
